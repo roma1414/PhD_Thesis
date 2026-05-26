@@ -1,0 +1,78 @@
+\documentclass[dissertation, copyright, final, numsections, gsmodern]{uothesis}
+%\documentclass[dissertation, copyright, draftcopy]{uothesis}
+%\usepackage[english,UKenglish]{babel}
+\usepackage[UKenglish]{babel}
+\usepackage{amsmath, latexsym, amssymb}
+\usepackage{natbib}
+\usepackage{etoolbox}
+\usepackage{mathrsfs}
+
+\newcommand{\rednote}[1]{{\color{red} (#1)}}
+\newcommand{\todoin}[1][]{\todo[inline,#1]}
+
+%%%PREFATORY PAGES
+\include{cover}
+\include{abstract}
+\include{cv}
+\include{acknowledgements}  %%acknowledgements page optional
+%\include{dedication} %%dedication page optional
+
+% fix amsmath's \dddot
+\patchcmd{\dddot}{#1}{\kern0pt #1}{}{}
+
+\makeatletter
+\DeclareRobustCommand{\barredI}{%
+  \mathord{\vphantom{I}\mathpalette\@barredI\relax}%
+}
+
+\newcommand{\@barredI}[2]{%
+  \ooalign{%
+    \hidewidth\@barredIbar#1\hidewidth\cr
+    $\m@th#1I$\cr
+  }%
+}
+
+\newcommand{\@barredIbar}[1]{%
+  \check@mathfonts
+  \ifx#1\displaystyle
+    \fontsize{\f@size}{\z@}%
+    \def\@barredIbarkern{0}%
+  \else
+    \ifx#1\textstyle
+      \fontsize{\f@size}{\z@}
+      \def\@barredIbarkern{0.3}%
+    \else
+      \ifx#1\scriptstyle
+        \fontsize{\sf@size}{\z@}
+        \def\@barredIbarkern{0.4}%
+      \else
+        \fontsize{\ssf@size}{\z@}
+        \def\@barredIbarkern{0.47}%
+      \fi
+    \fi
+  \fi
+  \usefont{OT1}{cmr}{m}{n}%
+  \kern-\@barredIbarkern em 
+  \raisebox{-.6ex}{\symbol{'26}}%
+}
+\makeatother
+
+%%%MAIN DOCUMENT
+\graphicspath{{./figures/}}
+\begin{document}
+\maketitle
+%%%CHAPTERS
+\include{Introduction}
+\include{chapter2}
+\include{chapter3}
+\include{chapter4}
+\include{chapter5}
+\include{chapter6}
+\include{Conclusion}
+%%%APPENDICES
+\appendix
+\include{appendix1}
+%%BIBILIOGRAPHY
+\bibliographystyle{unsrtnat}
+\bibliography{thesisbib} %%disbib.bib uses BibTex formatting.
+\end{document}
